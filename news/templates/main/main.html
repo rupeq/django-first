@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title%}Hyper news{% endblock %}
+{% block content %}
+    <h2>Hyper news</h2>
+    <form action="" method="get">{% csrf_token %}
+        <label for="q"></label><input type="text" name="q" id="q" width="50">
+        <label for="spot"></label>
+        <input type="radio" name="spot" id="spot" value="title" checked="checked"> Title
+        <input type="radio" name="spot" id="spot" value="text"> Content
+        <button type="submit">Search</button>
+    </form>
+    {% for day in dates %}
+    <h4>{{  day.0|date:"Y-m-d" }}</h4>
+    <ul>
+        {% for item in day.1 %}
+            <li><a href="/news/{{  item.link }}/">{{ item.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+{% endblock %}
